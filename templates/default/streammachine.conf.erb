@@ -1,0 +1,12 @@
+description "StreamMachine"
+
+start on runlevel [2345]
+stop on runlevel [016]
+
+console log
+
+setuid <%= node.streammachine.user %>
+
+script
+/usr/bin/env lifeguard --cmd "/usr/bin/env streammachine --config=/etc/streammachine.json"
+end script
