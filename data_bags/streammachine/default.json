@@ -2,8 +2,8 @@
   "id": "default",
   "config": {
     "mode":         "standalone",
-  	"port":			    8015,
-  	"source_port":	8016,
+  	"port":			    8001,
+  	"source_port":	8002,
   	"log": {
   		"stdout":     true,
   		"json": {

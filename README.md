@@ -35,8 +35,8 @@ install.
 ## Vagrant
 
 The included Vagrantfile will boot a standalone StreamMachine instance at 
-192.168.133.25, with the public and admin functions on port 8015 and the 
-source input port on 8016.
+192.168.133.25, with the public and admin functions on port 8001 and the 
+source input port on 8002.
 
-Once it boots, start by going to http://192.168.133.25:8015/admin, with 
+Once it boots, start by going to http://192.168.133.25:8001/admin, with 
 admin/admin. Once inside click "Add a Stream" to create a stream. 
