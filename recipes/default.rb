@@ -1,6 +1,7 @@
 # Install StreamMachine
 
-package "git"
+include_recipe "nodejs"
+include_recipe "lifeguard"
 
 # -- Create our User -- #
 
@@ -22,8 +23,23 @@ end
 
 # -- Install the code -- #
 
-npm_package "StreamMachine/StreamMachine" do
-  action :install
+# Install StreamMachine, unless we already have the version requested
+execute "npm install -g streammachine@#{node.streammachine.version}" do
+  path ["/usr/bin","/usr/local/bin"]
+  not_if do
+    json = `npm list -g streammachine --json`
+    begin
+      obj = JSON.parse json
+      
+      if obj["dependencies"] && obj["dependencies"]["streammachine"]["version"] == node.streammachine.version
+        true
+      else
+        false
+      end
+    rescue
+      false
+    end
+  end
 end
 
 # -- Write our config file -- #
@@ -49,13 +65,6 @@ else
   log "Failed to find StreamMachine config at #{node.streammachine.databag}/#{node.streammachine.config}"
 end
 
-# -- Install Lifeguard -- #
-
-npm_package "lifeguard" do
-  action :install
-  version "~0.3.0"
-end
-
 # -- Install our Upstart Task -- #
 
 template "/etc/init/streammachine.conf" do
@@ -64,6 +73,12 @@ template "/etc/init/streammachine.conf" do
   mode    0644
 end
 
-
 # -- Start the service -- #
 
+lifeguard_service "StreamMachine" do
+  action  [:enable,:start]
+  service "streammachine"
+  command "streammachine --config /etc/streammachine.json"
+  user    node.streammachine.user
+  handoff true
+end

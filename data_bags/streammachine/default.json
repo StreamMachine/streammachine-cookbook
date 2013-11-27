@@ -1,0 +1,24 @@
+{
+  "id": "default",
+  "config": {
+    "mode":         "standalone",
+  	"port":			    8015,
+  	"source_port":	8016,
+  	"log": {
+  		"stdout":     true,
+  		"json": {
+  			"file": 	  "/var/log/streammachine/streammachine.log",
+  			"level":	  "info"
+  		},
+      "w3c": {
+        "level":    "request",
+        "file":     "/var/log/streammachine/streammachine-w3c.log"
+      }
+    },
+    "alerts": {
+    },
+  	"redis": {
+  		"server": "redis://localhost:6379"
+  	}
+  }
+}

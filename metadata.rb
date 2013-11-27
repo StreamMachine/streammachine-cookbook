@@ -10,5 +10,5 @@ provides         "streammachine"
 recipe "streammachine", "Installs StreamMachine"
 
 depends "nodejs"
-depends "npm"
 depends "apt"
+depends "lifeguard"

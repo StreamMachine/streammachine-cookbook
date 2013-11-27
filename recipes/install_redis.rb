@@ -11,6 +11,17 @@ case node['platform']
     
     package "redis-server"
     
+  when "centos"
+    package "redis"
+    
   else
     
+end
+
+# -- Install an admin user -- #
+
+execute "install-admin-user" do
+  action    :run
+  command   "redis-cli hset users admin '#{node.streammachine.admin_password}'"
+  #only_if   { `redis-cli hexists users admin` == "0" }
 end
