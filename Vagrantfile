@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
-  
+
   config.omnibus.chef_version = :latest
 
   # Assign this VM to a host-only network IP, allowing you to access it
@@ -23,20 +23,19 @@ Vagrant.configure("2") do |config|
   # network interface) by any external networks.
   config.vm.network :private_network, ip: "192.168.133.25"
 
-  config.ssh.max_tries = 40
-  config.ssh.timeout   = 120
-
   config.berkshelf.enabled = true
 
   config.vm.provision :chef_solo do |chef|
     chef.data_bags_path = "./data_bags"
-    
+
     chef.json = {
-      nodejs: { install_method: "package" }
+      nodejs: { install_method: "package" },
+      streammachine: { install_ffmpeg: true }
     }
 
     chef.run_list = [
-        "recipe[streammachine::install_redis]",
+        "recipe[apt]",
+        "recipe[streammachine::elasticsearch]",
         "recipe[streammachine]"
     ]
   end

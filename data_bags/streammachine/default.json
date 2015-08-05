@@ -2,23 +2,35 @@
   "id": "default",
   "config": {
     "mode":         "standalone",
-  	"port":			    8001,
-  	"source_port":	8002,
-  	"log": {
-  		"stdout":     true,
-  		"json": {
-  			"file": 	  "/var/log/streammachine/streammachine.log",
-  			"level":	  "info"
-  		},
+    "port":         8001,
+    "source_port":	8002,
+    "log": {
+      "stdout":     true,
+      "json": {
+        "file":     "/var/log/streammachine/streammachine.log",
+        "level":    "info"
+      },
       "w3c": {
         "level":    "request",
         "file":     "/var/log/streammachine/streammachine-w3c.log"
       }
     },
-    "alerts": {
+    "streams": {
+      "test": {
+        "key":              "test",
+        "root_route":       true,
+        "format":           "mp3",
+        "seconds":          3600,
+        "metaTitle":        "Testing",
+        "host":             "localhost",
+        "source_password":  "testing"
+      }
     },
-  	"redis": {
-  		"server": "redis://localhost:6379"
-  	}
+    "analytics": {
+      "es_uri": "http://localhost:9200/streammachine",
+      "finalize_secs": 300
+    },
+    "alerts": {
+    }
   }
 }

@@ -1,0 +1,70 @@
+{
+  "id": "test",
+  "user": "streamM",
+  "home": "/streammachine/master",
+  "config": {
+    "source_port":	8002,
+    "mode": "master",
+    "master": {
+      "port":       8003,
+      "password":   "abc123"
+    },
+    "log": {
+      "stdout":     true
+    },
+    "analytics": {
+      "influx":         "influx://stream:machine@localhost:8086/streammachine",
+      "finalize_secs":  300
+    },
+    "streams": {
+      "test-256": {
+        "key":              "test-256",
+        "root_route":       true,
+        "format":           "aac",
+        "seconds":          360,
+        "metaTitle":        "Testing",
+        "host":             "ewr-mbp.local:8004",
+        "source_password":  "testing",
+        "monitored":        false,
+        "group":            "test",
+        "bandwidth":        256000,
+        "codec":            "mp4a.40.2",
+        "ffmpeg_args":      "-c:a libfdk_aac|-b:a 256k|-f:a adts",
+        "stream_key":       "aac-44100-2-2"
+      },
+      "test-128": {
+        "key":              "test-128",
+        "root_route":       true,
+        "format":           "aac",
+        "seconds":          360,
+        "metaTitle":        "Testing",
+        "host":             "ewr-mbp.local:8004",
+        "source_password":  "testing",
+        "monitored":        false,
+        "group":            "test",
+        "bandwidth":        128000,
+        "codec":            "mp4a.40.2",
+        "ffmpeg_args":      "-c:a libfdk_aac|-b:a 128k|-f:a adts",
+        "stream_key":       "aac-44100-2-2"
+      },
+      "test-64": {
+        "key":              "test-64",
+        "root_route":       true,
+        "format":           "aac",
+        "seconds":          360,
+        "metaTitle":        "Testing",
+        "host":             "ewr-mbp.local:8004",
+        "source_password":  "testing",
+        "monitored":        false,
+        "group":            "test",
+        "bandwidth":        64000,
+        "codec":            "mp4a.40.2",
+        "ffmpeg_args":      "-c:a libfdk_aac|-b:a 64k|-f:a adts|-profile:a aac_he",
+        "stream_key":       "aac-44100-2-2"
+      }
+    },
+    "users": {
+      "admin": "sha1$4910774a$1$d9ad69e6b7be6dd2fd4767dda957ed47a582c7e3"
+    }
+  }
+}

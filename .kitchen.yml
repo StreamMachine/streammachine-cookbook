@@ -1,0 +1,26 @@
+---
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
+
+platforms:
+- name: ubuntu-12.04
+
+suites:
+- name: default
+  data_paths_path:  "./test/data_bags"
+  attributes:
+    nodejs:
+      install_method: "package"
+  run_list:
+    - "recipe[streammachine]"
+
+- name: master
+  data_paths_path:  "./test/data_bags"
+  attributes:
+    streammachine:
+      version: "master"
+    nodejs:
+      install_method: "package"
+  run_list:
+    - "recipe[streammachine]"
