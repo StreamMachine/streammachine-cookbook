@@ -1,0 +1,3 @@
+#!/bin/sh
+exec 2>&1
+exec chpst -u <%= @options[:user] %> /usr/bin/env streammachine-runner <% if @options[:watch] %>--watch "<%= @options[:watch] %>" --restart <% end %>--title "<%= @options[:name] %>" --config <%= @options[:config] %>

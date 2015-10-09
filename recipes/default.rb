@@ -1,8 +1,6 @@
 # Install StreamMachine
 
 include_recipe "nodejs"
-include_recipe "lifeguard"
-
 include_recipe "git"
 
 if node.streammachine.install_ffmpeg
@@ -85,20 +83,14 @@ else
   log "Failed to find StreamMachine config at #{node.streammachine.databag}/#{node.streammachine.config}"
 end
 
-# -- Install our Upstart Task -- #
+# -- Create and start our service -- #
 
-#template "/etc/init/streammachine.conf" do
-#  action  :create_if_missing
-#  user    "root"
-#  mode    0644
-#end
+include_recipe "runit"
 
-# -- Start the service -- #
-
-lifeguard_service "StreamMachine" do
-  action  [:enable,:start]
-  service "streammachine"
-  command "/usr/bin/env streammachine --config /etc/streammachine.json"
-  user    node.streammachine.user
-  handoff true
+runit_service "streammachine" do
+  default_logger true
+  options({
+    user:   node.streammachine.user,
+    config: "/etc/streammachine.json",
+  })
 end

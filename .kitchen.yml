@@ -5,18 +5,18 @@ driver_config:
 
 platforms:
 - name: ubuntu-12.04
+- name: ubuntu-14.04
 
 suites:
 - name: default
-  data_paths_path:  "./test/data_bags"
+  data_bags_path:  "./test/data_bags"
   attributes:
     nodejs:
       install_method: "package"
   run_list:
     - "recipe[streammachine]"
-
 - name: master
-  data_paths_path:  "./test/data_bags"
+  data_bags_path:  "./test/data_bags"
   attributes:
     streammachine:
       version: "master"
@@ -24,3 +24,14 @@ suites:
       install_method: "package"
   run_list:
     - "recipe[streammachine]"
+- name: node4
+  data_bags_path:  "./test/data_bags"
+  attributes:
+    streammachine:
+      version: "master"
+    nodejs:
+      install_method: "package"
+      repo: "https://deb.nodesource.com/node_4.x"
+  run_list:
+    - "recipe[streammachine]"
+
